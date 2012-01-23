@@ -54,7 +54,7 @@ echo "ok"
 echo "create all federated tables structure.."
 for table in `mysql --batch --skip-column-names $cred_old -e "SHOW TABLES"`; do
 	echo "  federate $table"
-	mysqldump --no-data $cred_old $table |sed "s/ENGINE=[^ ]*/ENGINE=FEDERATED CONNECTION='mysql:\/\/$old_db_user:$old_db_pass@$old_db_host\/jamendo_live\/$table'/g" | mysql -u$new_db_user -p$new_db_pass -h $new_db_host $federateddb ;
+	mysqldump --no-data $cred_old $table |sed "s/ENGINE=[^ ]*/ENGINE=FEDERATED CONNECTION='mysql:\/\/$old_db_user:$old_db_pass@$old_db_host\/$old_db_name\/$table'/g" | mysql -u$new_db_user -p$new_db_pass -h $new_db_host $federateddb ;
 done
 echo "ok"
 
